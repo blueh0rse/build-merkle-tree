@@ -6,3 +6,8 @@
 
 ## Building Merkle trees
 
+For mathematical operations:
+
+````bash
+sudo apt install bc
+````
