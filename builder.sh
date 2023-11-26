@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+# set -x
 
 # directories
 DOCS="docs"
@@ -54,7 +54,8 @@ function clean_dirs() {
 }
 
 function generate_documents() {
-    nb_leaves=$1
+    arg=$1
+    nb_leaves=$((arg - 1))
 
     # directory to store documents
     DOCS="./docs"
@@ -310,16 +311,7 @@ function verify_proof() {
         # Extract node info and hash
         local node_info=$(echo "$line" | cut -d ':' -f 1)
         local node_hash=$(echo "$line" | cut -d ':' -f 2)
-
-        # Determine whether the current node is left or right child
-        # if [[ $(echo "$node_info" | grep -oE '[0-9]+$') -eq $((doc_index / 2 ** current_layer)) ]]; then
-        # Current node is left child
         computed_hash=$(echo "$PRE_NODE" "$computed_hash" "$node_hash" | openssl dgst -sha1 -binary | xxd -p)
-        # else
-        # Current node is right child
-        # computed_hash=$(echo "$PRE_NODE" "$node_hash" "$computed_hash" | openssl dgst -sha1 -binary | xxd -p)
-        # fi
-
         current_layer=$((current_layer + 1))
     done <"$proof_file"
 
@@ -334,9 +326,7 @@ function verify_proof() {
 function main() {
     initialization
     # mode selection
-    if [ "$1" == "docs" ]; then
-        echo "You want to generate documents."
-    elif [ "$1" == "build" ]; then
+    if [ "$1" == "build" ]; then
         echo "You want to build a tree."
         # generates documents
         generate_documents "$2"
