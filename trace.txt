@@ -1,0 +1,327 @@
+$ ./builder.sh clean && ./builder.sh docs 1 && ./b
+uilder.sh build && ./builder.sh gproof 0 && ./builder.sh vproof 0 proof_0.txt
++ DOCS=docs
++ NODES=nodes
++ PRE_DOCS=doc.pre
++ PRE_NODE=node.pre
++ OUTPUT_FILE=tree.txt
++ main clean
++ initialization
++ '[' -d docs ']'
++ '[' -d nodes ']'
++ '[' -f doc.pre ']'
++ '[' -f node.pre ']'
+++ find docs -maxdepth 1 -type f
+++ wc -l
++ nb_leaves=2
+++ echo 'l(2)/l(2)'
+++ bc -l
++ nb_layers=1.00000000000000000000
+++ printf %.0f 1.00000000000000000000
++ nb_layers=1
++ nb_layers=2
++ echo 'Tree has 2 leaves: need 2 layers.'
+Tree has 2 leaves: need 2 layers.
++ '[' clean == docs ']'
++ '[' clean == build ']'
++ '[' clean == update ']'
++ '[' clean == gproof ']'
++ '[' clean == vproof ']'
++ '[' clean == clean ']'
++ clean_dirs
++ rm -rf docs/doc0.txt docs/doc1.txt
++ rm -rf nodes/node0.0 nodes/node0.1 nodes/node1.0
++ DOCS=docs
++ NODES=nodes
++ PRE_DOCS=doc.pre
++ PRE_NODE=node.pre
++ OUTPUT_FILE=tree.txt
++ main docs 1
++ initialization
++ '[' -d docs ']'
++ '[' -d nodes ']'
++ '[' -f doc.pre ']'
++ '[' -f node.pre ']'
+++ find docs -maxdepth 1 -type f
+++ wc -l
++ nb_leaves=0
+++ echo 'l(0)/l(2)'
+++ bc -l
++ nb_layers=-144269504088896340736.05504438629162572417
+++ printf %.0f -144269504088896340736.05504438629162572417
++ nb_layers=-144269504088896340736
++ nb_layers=3304448500780072193
++ echo 'Tree has 0 leaves: need 3304448500780072193 layers.'
+Tree has 0 leaves: need 3304448500780072193 layers.
++ '[' docs == docs ']'
++ echo 'You want to generate documents.'
+You want to generate documents.
++ generate_documents 1
++ nb_leaves=1
++ DOCS=./docs
++ '[' '!' -d ./docs ']'
++ rm -rf './docs/*'
++ '[' 0 -ne 0 ']'
++ (( i = 0 ))
++ (( i <= nb_leaves ))
++ touch ./docs/doc0.txt
++ '[' 0 -ne 0 ']'
++ echo 000
++ (( i++ ))
++ (( i <= nb_leaves ))
++ touch ./docs/doc1.txt
++ '[' 0 -ne 0 ']'
++ echo 111
++ (( i++ ))
++ (( i <= nb_leaves ))
++ DOCS=docs
++ NODES=nodes
++ PRE_DOCS=doc.pre
++ PRE_NODE=node.pre
++ OUTPUT_FILE=tree.txt
++ main build
++ initialization
++ '[' -d docs ']'
++ '[' -d nodes ']'
++ '[' -f doc.pre ']'
++ '[' -f node.pre ']'
+++ find docs -maxdepth 1 -type f
+++ wc -l
++ nb_leaves=2
+++ echo 'l(2)/l(2)'
+++ bc -l
++ nb_layers=1.00000000000000000000
+++ printf %.0f 1.00000000000000000000
++ nb_layers=1
++ nb_layers=2
++ echo 'Tree has 2 leaves: need 2 layers.'
+Tree has 2 leaves: need 2 layers.
++ '[' build == docs ']'
++ '[' build == build ']'
++ echo 'You want to build a tree.'
+You want to build a tree.
++ generate_leaves
++ local j=0
++ for file in "$DOCS"/*
++ '[' -f docs/doc0.txt ']'
++ cat doc.pre docs/doc0.txt
++ openssl dgst -sha1 -binary
++ xxd -p
++ j=1
++ for file in "$DOCS"/*
++ '[' -f docs/doc1.txt ']'
++ cat doc.pre docs/doc1.txt
++ openssl dgst -sha1 -binary
++ xxd -p
++ j=2
++ echo 'Documents transformed into leaves successfully'
+Documents transformed into leaves successfully
++ generate_tree 0
++ local i=0
++ local ii=1
++ local j=0
++ local nb_nodes=0
++ local c=0
+++ find nodes -maxdepth 1 -type f -name 'node0.*'
+++ wc -l
++ nb_nodes=2
++ (( nb_nodes == 1 ))
++ for file in "$NODES"/*
++ '[' -f nodes/node0.0 ']'
++ [[ nodes/node0.0 == \n\o\d\e\s\/\n\o\d\e\0\.* ]]
++ (( c % 2 == 0 ))
++ :
++ (( nb_nodes % 2 != 0 && c == (nb_nodes - 1) ))
++ c=1
++ (( c == nb_nodes ))
++ for file in "$NODES"/*
++ '[' -f nodes/node0.1 ']'
++ [[ nodes/node0.1 == \n\o\d\e\s\/\n\o\d\e\0\.* ]]
++ (( c % 2 == 0 ))
+++ cut -d ' ' -f 1
+++ echo nodes/node0.0 nodes/node0.1
++ previous_file=nodes/node0.0
++ echo 'Computing nodes/node0.0 & nodes/node0.1 into nodes/node1.0'
+Computing nodes/node0.0 & nodes/node0.1 into nodes/node1.0
+++ cat node.pre nodes/node0.0 nodes/node0.1
+++ openssl dgst -sha1 -binary
+++ xxd -p
++ test=61cf5afd42e4ae525eb61dde3da1c1d7093b0691
++ echo 61cf5afd42e4ae525eb61dde3da1c1d7093b0691
+61cf5afd42e4ae525eb61dde3da1c1d7093b0691
++ cat node.pre nodes/node0.0 nodes/node0.1
++ openssl dgst -sha1 -binary
++ xxd -p
++ j=1
++ (( nb_nodes % 2 != 0 && c == (nb_nodes - 1) ))
++ c=2
++ (( c == nb_nodes ))
++ echo 'Layer 0 done, moving to layer 1'
+Layer 0 done, moving to layer 1
++ generate_tree 1
++ local i=1
++ local ii=2
++ local j=0
++ local nb_nodes=0
++ local c=0
+++ wc -l
+++ find nodes -maxdepth 1 -type f -name 'node1.*'
++ nb_nodes=1
++ (( nb_nodes == 1 ))
++ echo 'Tree generation done!'
+Tree generation done!
++ return
++ generate_syntese
++ name=MerkleTree
++ algo=sha1
+++ cat doc.pre
++ doc_prefix=0x35
+++ cat node.pre
++ node_prefix=0x53
+++ tail -n 1 nodes/node0.0 nodes/node0.1 nodes/node1.0
+++ tail -n 1
++ root_hash=61cf5afd42e4ae525eb61dde3da1c1d7093b0691
++ echo MerkleTree:sha1:0x35:0x53:2:2:61cf5afd42e4ae525eb61dde3da1c1d7093b0691
+++ ls nodes/
+++ sort -V
++ for file in $(ls "$NODES"/ | sort -V)
++ full_path=nodes/node0.0
++ [[ node0.0 =~ ([0-9]+\.[0-9]+)$ ]]
++ node_order=0.0
+++ echo 0.0
+++ tr . :
++ node_order=0:0
+++ cat nodes/node0.0
++ echo 0:0:4466e8e8fa6292d787072da177645b91a583be17
++ for file in $(ls "$NODES"/ | sort -V)
++ full_path=nodes/node0.1
++ [[ node0.1 =~ ([0-9]+\.[0-9]+)$ ]]
++ node_order=0.1
+++ echo 0.1
+++ tr . :
++ node_order=0:1
+++ cat nodes/node0.1
++ echo 0:1:1ae90f795c2f7601f87e00df120e3fea2c732a41
++ for file in $(ls "$NODES"/ | sort -V)
++ full_path=nodes/node1.0
++ [[ node1.0 =~ ([0-9]+\.[0-9]+)$ ]]
++ node_order=1.0
+++ echo 1.0
+++ tr . :
++ node_order=1:0
+++ cat nodes/node1.0
++ echo 1:0:61cf5afd42e4ae525eb61dde3da1c1d7093b0691
++ DOCS=docs
++ NODES=nodes
++ PRE_DOCS=doc.pre
++ PRE_NODE=node.pre
++ OUTPUT_FILE=tree.txt
++ main gproof 0
++ initialization
++ '[' -d docs ']'
++ '[' -d nodes ']'
++ '[' -f doc.pre ']'
++ '[' -f node.pre ']'
+++ find docs -maxdepth 1 -type f
+++ wc -l
++ nb_leaves=2
+++ echo 'l(2)/l(2)'
+++ bc -l
++ nb_layers=1.00000000000000000000
+++ printf %.0f 1.00000000000000000000
++ nb_layers=1
++ nb_layers=2
++ echo 'Tree has 2 leaves: need 2 layers.'
+Tree has 2 leaves: need 2 layers.
++ '[' gproof == docs ']'
++ '[' gproof == build ']'
++ '[' gproof == update ']'
++ '[' gproof == gproof ']'
++ generate_proof 0
++ local doc_index=0
++ local proof_file=proof_0.txt
++ local current_layer=0
++ local current_node_index=0
++ [[ 0 -lt 2 ]]
++ local sibling_index
++ (( current_node_index % 2 ))
++ sibling_index=1
++ local sibling_node=nodes/node0.1
++ echo 'Current layer: 0, Current node index: 0, Sibling node: nodes/node0.1'
+Current layer: 0, Current node index: 0, Sibling node: nodes/node0.1
++ '[' -f nodes/node0.1 ']'
+++ cat nodes/node0.1
++ echo node0.1:1ae90f795c2f7601f87e00df120e3fea2c732a41
++ current_layer=1
++ current_node_index=0
++ [[ 1 -lt 2 ]]
++ local sibling_index
++ (( current_node_index % 2 ))
++ sibling_index=1
++ local sibling_node=nodes/node1.1
++ echo 'Current layer: 1, Current node index: 0, Sibling node: nodes/node1.1'
+Current layer: 1, Current node index: 0, Sibling node: nodes/node1.1
++ '[' -f nodes/node1.1 ']'
++ current_layer=2
++ current_node_index=0
++ [[ 2 -lt 2 ]]
++ echo 'Proof of membership generated in proof_0.txt'
+Proof of membership generated in proof_0.txt
++ DOCS=docs
++ NODES=nodes
++ PRE_DOCS=doc.pre
++ PRE_NODE=node.pre
++ OUTPUT_FILE=tree.txt
++ main vproof 0 proof_0.txt
++ initialization
++ '[' -d docs ']'
++ '[' -d nodes ']'
++ '[' -f doc.pre ']'
++ '[' -f node.pre ']'
+++ find docs -maxdepth 1 -type f
+++ wc -l
++ nb_leaves=2
+++ echo 'l(2)/l(2)'
+++ bc -l
++ nb_layers=1.00000000000000000000
+++ printf %.0f 1.00000000000000000000
++ nb_layers=1
++ nb_layers=2
++ echo 'Tree has 2 leaves: need 2 layers.'
+Tree has 2 leaves: need 2 layers.
++ '[' vproof == docs ']'
++ '[' vproof == build ']'
++ '[' vproof == update ']'
++ '[' vproof == gproof ']'
++ '[' vproof == vproof ']'
++ verify_proof 0 proof_0.txt
++ local doc_index=0
++ local proof_file=proof_0.txt
++ local doc_file=docs/doc0.txt
++ local syntese_file=tree.txt
+++ head -n 1 tree.txt
++ local public_info=MerkleTree:sha1:0x35:0x53:2:2:61cf5afd42e4ae525eb61dde3da1c1d7093b0691
+++ echo MerkleTree:sha1:0x35:0x53:2:2:61cf5afd42e4ae525eb61dde3da1c1d7093b0691
+++ cut -d : -f 7
++ local root_hash=61cf5afd42e4ae525eb61dde3da1c1d7093b0691
+++ cat doc.pre docs/doc0.txt
+++ openssl dgst -sha1 -binary
+++ xxd -p
++ local doc_hash=4466e8e8fa6292d787072da177645b91a583be17
++ local computed_hash=4466e8e8fa6292d787072da177645b91a583be17
++ read -r line
+++ echo node0.1:1ae90f795c2f7601f87e00df120e3fea2c732a41
+++ cut -d : -f 1
++ local node_info=node0.1
+++ echo node0.1:1ae90f795c2f7601f87e00df120e3fea2c732a41
+++ cut -d : -f 2
++ local node_hash=1ae90f795c2f7601f87e00df120e3fea2c732a41
+++ echo node.pre 4466e8e8fa6292d787072da177645b91a583be17 1ae90f795c2f7601f87e00df120e3fea2c732a41
+++ openssl dgst -sha1 -binary
+++ xxd -p
++ computed_hash=85824e0452f73b474f601677e8fde2dc4ba0af2a
++ current_layer=1
++ read -r line
++ '[' 85824e0452f73b474f601677e8fde2dc4ba0af2a == 61cf5afd42e4ae525eb61dde3da1c1d7093b0691 ']'
++ echo 'Verification failed: Document at position 0 is not part of the Merkle Tree.'
+Verification failed: Document at position 0 is not part of the Merkle Tree.
